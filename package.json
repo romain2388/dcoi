@@ -1,0 +1,46 @@
+{
+  "name": "dcoi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hpe-design/icons-grommet": "^1.0.1",
+    "@tanstack/eslint-config": "^0.3.2",
+    "@tanstack/react-router": "^1.133.36",
+    "@tanstack/react-start": "^1.134.0",
+    "grommet": "^2.50.0",
+    "grommet-theme-hpe": "^8.0.0",
+    "hpe-design-tokens": "^2.1.0",
+    "mongoose": "^8.19.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "styled-components": "^6.1.19",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@types/node": "^24.9.2",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-unicorn": "^62.0.0",
+    "globals": "^16.4.0",
+    "prettier": "3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2",
+    "vite": "^7.1.12",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
