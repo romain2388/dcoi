@@ -15,6 +15,7 @@
   "dependencies": {
     "@hpe-design/icons-grommet": "^1.0.1",
     "@tanstack/eslint-config": "^0.3.2",
+    "@tanstack/nitro-v2-vite-plugin": "^1.133.19",
     "@tanstack/react-router": "^1.133.36",
     "@tanstack/react-start": "^1.134.0",
     "grommet": "^2.50.0",
