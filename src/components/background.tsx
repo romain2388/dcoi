@@ -19,12 +19,16 @@ export default function Background({ children }: Properties) {
     >
       <Box
         fill
-        pad="large"
+        pad={{ horizontal: "large", vertical: "small" }}
         round="xlarge"
         border={true}
         style={{
           backgroundColor: "rgba(0,15,0,0.8)",
           backdropFilter: "blur(15px)",
+          overflowY: "auto",
+          maxHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <TopMenu />

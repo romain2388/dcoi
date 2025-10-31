@@ -70,11 +70,11 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        <Grommet theme={myTheme} full>
-          <Background>
-            <ClientOnly>{children}</ClientOnly>
-          </Background>
-        </Grommet>
+        <ClientOnly>
+          <Grommet theme={myTheme} full>
+            <Background>{children}</Background>
+          </Grommet>
+        </ClientOnly>
         <Scripts />
       </body>
     </html>

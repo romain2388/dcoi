@@ -10,7 +10,7 @@ function RouteComponent() {
 
   const handleLogin = () => {
     const encrypted = btoa(inputPassword);
-    localStorage.setItem("dmoiadminPassword", encrypted);
+    localStorage.setItem("dmoiadminPassword", inputPassword);
   };
 
   return (

@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { ProjectFormDTOSchema } from "../dto/projects/project-form-struct";
-import ProjectTable from "../schemas/project-schema";
+import databaseConnect from "../db/mongoose";
+import { projectModel } from "../db/schemas/project-schema";
 import type {
   ProjectFormDTOType,
   ProjectFormType,
@@ -13,7 +14,8 @@ export const createProject = createServerFn()
     if (data.adminPwd !== process.env.ADMIN_PWD) {
       throw new Error("Unauthorized");
     }
-    await ProjectTable.create({
+    await databaseConnect();
+    await projectModel.create({
       name: data.formData.name,
       description: data.formData.description,
       carbonStandard: data.formData.carbonStandard,
@@ -34,7 +36,8 @@ export const updateProject = createServerFn()
     if (data.adminPwd !== process.env.ADMIN_PWD) {
       throw new Error("Unauthorized");
     }
-    await ProjectTable.updateOne(
+    await databaseConnect();
+    await projectModel.updateOne(
       { _id: data.formData._id },
       {
         name: data.formData.name,
@@ -55,40 +58,43 @@ export const updateProject = createServerFn()
 export const deleteProject = createServerFn()
   .inputValidator(z.string())
   .handler(async ({ data }) => {
-    await ProjectTable.deleteOne({ _id: data });
+    await databaseConnect();
+    await projectModel.deleteOne({ _id: data });
   });
 
 export const getAllProjects = createServerFn().handler(async () => {
-  const projects = await ProjectTable.find();
+  console.log("getAllProjects");
+  await databaseConnect();
+  const projects = await projectModel.find();
   const serializableProjects = projects.map((p) => ({
     ...p,
     _id: p._id.toString(),
-  })) as unknown as Array<ProjectFormDTOType>;
-  return { success: true, projects: serializableProjects };
+  })) as Array<ProjectFormType>;
+  return serializableProjects;
 });
 
 export const getProject = createServerFn()
   .inputValidator(z.string())
   .handler(async ({ data }) => {
-    if (data === "") {
+    console.log("getProject called with id:", data);
+    if (data === "0") {
       return {
-        project: {
-          _id: "0",
-          name: "",
-          description: "",
-          carbonStandard: "",
-          carbonQuantity: 0,
-          carbonPrice: 0,
-          country: "",
-          image1Url: "",
-          image2Url: "",
-          image3Url: "",
-          videoUrl: "",
-          proofOfRetirementUrl: "",
-        } as ProjectFormType,
-      };
+        _id: "0",
+        name: "",
+        description: "",
+        carbonStandard: "",
+        carbonQuantity: 0,
+        carbonPrice: 0,
+        country: "",
+        image1Url: "",
+        image2Url: "",
+        image3Url: "",
+        videoUrl: "",
+        proofOfRetirementUrl: "",
+      } as ProjectFormType;
     }
-    const project = await ProjectTable.findById(data);
+    await databaseConnect();
+    const project = await projectModel.findById(data);
     if (!project) {
       throw new Error("Project not found");
     }

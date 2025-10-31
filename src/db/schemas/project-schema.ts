@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
 
-const projectSchema = new mongoose.Schema({
+export const projectSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -46,7 +46,6 @@ const projectSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-const ProjectTable = mongoose.model("Project", projectSchema);
-
-export default ProjectTable;
+export const projectModel =
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  mongoose.models.Project || model("Project", projectSchema);

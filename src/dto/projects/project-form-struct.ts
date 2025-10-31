@@ -2,17 +2,17 @@ import { z } from "zod";
 
 export const ProjectFormSchema = z.object({
   _id: z.string(),
-  name: z.string(),
-  description: z.string(),
-  carbonStandard: z.string(),
-  carbonQuantity: z.number(),
-  carbonPrice: z.number().optional(),
-  country: z.string(),
-  image1Url: z.url().optional(),
-  image2Url: z.url().optional(),
-  image3Url: z.url().optional(),
-  videoUrl: z.url().optional(),
-  proofOfRetirementUrl: z.url().optional(),
+  name: z.string().min(5),
+  description: z.string().min(5),
+  carbonStandard: z.string().min(5),
+  carbonQuantity: z.int().min(5),
+  carbonPrice: z.int().optional(),
+  country: z.string().min(5),
+  image1Url: z.url().or(z.literal("")),
+  image2Url: z.url().or(z.literal("")),
+  image3Url: z.url().or(z.literal("")),
+  videoUrl: z.url().or(z.literal("")),
+  proofOfRetirementUrl: z.url().or(z.literal("")),
 });
 
 export const ProjectFormDTOSchema = z.object({
