@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { Grommet, dark } from "grommet";
 import { hpe } from "grommet-theme-hpe";
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react";
 import { deepMerge } from "grommet/utils";
 import Background from "../components/background";
 import type { ReactNode } from "react";
+import { QueryClient } from "@tanstack/react-query";
 
 const firstmerge = deepMerge(hpe, dark);
 const myTheme = deepMerge(firstmerge, {
@@ -29,7 +31,9 @@ const myTheme = deepMerge(firstmerge, {
   },
 });
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   head: () => ({
     meta: [
       { charSet: "utf8" },

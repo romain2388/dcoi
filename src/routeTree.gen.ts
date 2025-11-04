@@ -8,102 +8,102 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as AdminIndexRouteImport } from "./routes/admin/index";
-import { Route as AdminProjectsRouteImport } from "./routes/admin/projects";
-import { Route as AdminProjectProjectIdRouteImport } from "./routes/admin/project.$projectId";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminProjectsRouteImport } from './routes/admin/projects'
+import { Route as AdminProjectProjectIdRouteImport } from './routes/admin/project.$projectId'
 
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: "/admin/",
-  path: "/admin/",
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminProjectsRoute = AdminProjectsRouteImport.update({
-  id: "/admin/projects",
-  path: "/admin/projects",
+  id: '/admin/projects',
+  path: '/admin/projects',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AdminProjectProjectIdRoute = AdminProjectProjectIdRouteImport.update({
-  id: "/admin/project/$projectId",
-  path: "/admin/project/$projectId",
+  id: '/admin/project/$projectId',
+  path: '/admin/project/$projectId',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/admin/projects": typeof AdminProjectsRoute;
-  "/admin": typeof AdminIndexRoute;
-  "/admin/project/$projectId": typeof AdminProjectProjectIdRoute;
+  '/': typeof IndexRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/admin/projects": typeof AdminProjectsRoute;
-  "/admin": typeof AdminIndexRoute;
-  "/admin/project/$projectId": typeof AdminProjectProjectIdRoute;
+  '/': typeof IndexRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/admin/projects": typeof AdminProjectsRoute;
-  "/admin/": typeof AdminIndexRoute;
-  "/admin/project/$projectId": typeof AdminProjectProjectIdRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/admin/projects" | "/admin" | "/admin/project/$projectId";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/admin/projects" | "/admin" | "/admin/project/$projectId";
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/admin/projects' | '/admin' | '/admin/project/$projectId'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/admin/projects' | '/admin' | '/admin/project/$projectId'
   id:
-    | "__root__"
-    | "/"
-    | "/admin/projects"
-    | "/admin/"
-    | "/admin/project/$projectId";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/admin/projects'
+    | '/admin/'
+    | '/admin/project/$projectId'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AdminProjectsRoute: typeof AdminProjectsRoute;
-  AdminIndexRoute: typeof AdminIndexRoute;
-  AdminProjectProjectIdRoute: typeof AdminProjectProjectIdRoute;
+  IndexRoute: typeof IndexRoute
+  AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminProjectProjectIdRoute: typeof AdminProjectProjectIdRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/": {
-      id: "/admin/";
-      path: "/admin";
-      fullPath: "/admin";
-      preLoaderRoute: typeof AdminIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/projects": {
-      id: "/admin/projects";
-      path: "/admin/projects";
-      fullPath: "/admin/projects";
-      preLoaderRoute: typeof AdminProjectsRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/admin/project/$projectId": {
-      id: "/admin/project/$projectId";
-      path: "/admin/project/$projectId";
-      fullPath: "/admin/project/$projectId";
-      preLoaderRoute: typeof AdminProjectProjectIdRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/admin/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/project/$projectId': {
+      id: '/admin/project/$projectId'
+      path: '/admin/project/$projectId'
+      fullPath: '/admin/project/$projectId'
+      preLoaderRoute: typeof AdminProjectProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -112,16 +112,16 @@ const rootRouteChildren: RootRouteChildren = {
   AdminProjectsRoute: AdminProjectsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminProjectProjectIdRoute: AdminProjectProjectIdRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
