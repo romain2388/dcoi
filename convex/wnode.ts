@@ -17,7 +17,6 @@ export const refreshAccountDetails = internalAction({
   handler: async (context, arguments_) => {
     const octokit = getAppLevelOctokit();
     if (arguments_.accountType === "Organization") {
-      6;
       const { data } = await octokit.rest.orgs.get({
         org: arguments_.accountLogin,
       });
@@ -60,20 +59,46 @@ export const syncInstallationRepos = internalAction({
       name: r.name,
       private: !!r.private,
       ownerId: r.owner.id,
-      ownerLogin: r.owner.login,
-      ownerType: r.owner.type,
-      visibility: r.visibility,
-      defaultBranch: r.default_branch,
-      htmlUrl: r.html_url,
-      archived: !!r.archived,
     }));
-    await context.runMutation(internal.repos.setReposForInstallation, {
-      installationId,
-      repos: mapped,
-    });
-    // Upsert des métadonnées canoniques de chaque repo
     for (const r of mapped) {
       await context.runMutation(internal.repos.upsertRepo, r);
+    }
+  },
+});
+
+export const syncMarketplaces = internalAction({
+  handler: async (context) => {
+    const octokit = getAppLevelOctokit();
+    const marketplaces = await context.runQuery(
+      internal.accounts.getMarketPlacesToUpdate,
+    );
+    for (const marketplace of marketplaces) {
+      const remoteMarketplace = await octokit.request(
+        "GET /marketplace_listing/accounts/{account_id}",
+        {
+          account_id: marketplace.accountId,
+          headers: {
+            "X-GitHub-Api-Version": "2022-11-28",
+          },
+        },
+      );
+
+      const mp = remoteMarketplace.data.marketplace_purchase;
+      const plan = mp.plan;
+      if (!plan) throw new Error("Could not find a plan");
+      await context.runMutation(internal.accounts.upsertMarketplace, {
+        accountId: marketplace.accountId,
+        planId: plan.id,
+        planName: plan.name,
+        billingCycle: mp.billing_cycle as "monthly" | "yearly",
+        nextBillingDate: mp.next_billing_date ?? "",
+      });
+
+      await context.runMutation(internal.accounts.feedCarbon, {
+        planId: plan.id,
+        billingCycle: mp.billing_cycle as "monthly" | "yearly",
+        accountId: marketplace.accountId,
+      });
     }
   },
 });

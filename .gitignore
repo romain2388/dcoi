@@ -3,3 +3,5 @@
 /.idea
 /.tanstack
 .env.local
+/.output/
+/.nitro/

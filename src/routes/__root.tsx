@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { deepMerge } from "grommet/utils";
 import Background from "../components/background";
 import type { ReactNode } from "react";
-import { QueryClient } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query";
 
 const firstmerge = deepMerge(hpe, dark);
 const myTheme = deepMerge(firstmerge, {
