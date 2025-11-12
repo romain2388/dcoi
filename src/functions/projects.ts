@@ -1,12 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { ProjectFormDTOSchema } from "../dto/projects/project-form-struct";
+import { ProjectFormDTOSchema } from "../dto/projects";
 import databaseConnect from "../db/mongoose";
 import { projectModel } from "../db/schemas/project-schema";
-import type {
-  ProjectFormDTOType,
-  ProjectFormType,
-} from "../dto/projects/project-form-struct";
+import type { ProjectFormType } from "../dto/projects";
 
 export const createProject = createServerFn()
   .inputValidator(ProjectFormDTOSchema)
@@ -66,11 +63,10 @@ export const getAllProjects = createServerFn().handler(async () => {
   console.log("getAllProjects");
   await databaseConnect();
   const projects = await projectModel.find();
-  const serializableProjects = projects.map((p) => ({
+  return projects.map((p) => ({
     ...p,
     _id: p._id.toString(),
   })) as Array<ProjectFormType>;
-  return serializableProjects;
 });
 
 export const getProject = createServerFn()

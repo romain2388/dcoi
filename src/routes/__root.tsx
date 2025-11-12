@@ -1,9 +1,7 @@
-// src/routes/__root.tsx
 import {
   HeadContent,
   Outlet,
   Scripts,
-  createRootRoute,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { Grommet, dark } from "grommet";

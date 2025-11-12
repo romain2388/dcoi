@@ -15,14 +15,13 @@ export default function TopMenu({ active = "home" }: topMenuProperties) {
   ];
 
   return (
-    <Header
-      pad={{ horizontal: "medium", bottom: "medium" }}
-      background="transparent"
-      align={"center"}
-    >
-      <Box direction="row" align={"end"}>
-        <Text size={"xxlarge"}>D</Text>
-        <Text size={"small"}>coi</Text>
+    <Header pad={{ horizontal: "medium", bottom: "medium" }} align={"center"}>
+      <Box direction="row" align={"center"}>
+        <Text size={"42pt"}>D</Text>
+        <Box>
+          <Text size={"xxlarge"}>coi</Text>
+          <Text size={"small"}>evops</Text>
+        </Box>
       </Box>
 
       <Nav direction="row">

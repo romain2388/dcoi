@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Box, Button, Form, FormField, Grid, Text, TextArea } from "grommet";
 import { useState } from "react";
-import { ProjectFormSchema } from "../../dto/projects/project-form-struct";
+import { ProjectFormSchema } from "../../dto/projects";
 import {
   createProject,
   getProject,
   updateProject,
 } from "../../functions/projects";
-import type { ProjectFormType } from "../../dto/projects/project-form-struct";
+import type { ProjectFormType } from "../../dto/projects";
 
 export const Route = createFileRoute("/admin/project/$projectId")({
   loader: ({ params: { projectId } }) => getProject({ data: projectId }),
@@ -84,9 +84,9 @@ function ProjectFormComponent() {
           </Box>
           {error !== "" && (
             <Box gap="small">
-              {JSON.parse(error).map((error, index) => (
+              {JSON.parse(error).map((errorContent, index) => (
                 <Text key={index} color="status-critical">
-                  {`${error.path.join(".")}: ${error.message}`}
+                  {`${errorContent.path.join(".")}: ${errorContent.message}`}
                 </Text>
               ))}
             </Box>
