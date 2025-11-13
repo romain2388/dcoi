@@ -10,25 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminProjectsRouteImport } from './routes/admin/projects'
 import { Route as ApiGithubIndexRouteImport } from './routes/api/github/index'
-import { Route as RegistryRegistryProjectnameRouteImport } from './routes/registry/registry.$projectname'
-import { Route as AdminProjectProjectIdRouteImport } from './routes/admin/project.$projectId'
+import { Route as clientAdminIndexRouteImport } from './routes/(client)/admin/index'
+import { Route as clientAdminProjectsRouteImport } from './routes/(client)/admin/projects'
+import { Route as clientAdminProjectProjectIdRouteImport } from './routes/(client)/admin/project.$projectId'
+import { Route as clientregistryRegistryProjectnameRouteImport } from './routes/(client)/(registry)/registry.$projectname'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminProjectsRoute = AdminProjectsRouteImport.update({
-  id: '/admin/projects',
-  path: '/admin/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGithubIndexRoute = ApiGithubIndexRouteImport.update({
@@ -36,42 +26,53 @@ const ApiGithubIndexRoute = ApiGithubIndexRouteImport.update({
   path: '/api/github/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RegistryRegistryProjectnameRoute =
-  RegistryRegistryProjectnameRouteImport.update({
-    id: '/registry/registry/$projectname',
-    path: '/registry/registry/$projectname',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminProjectProjectIdRoute = AdminProjectProjectIdRouteImport.update({
-  id: '/admin/project/$projectId',
-  path: '/admin/project/$projectId',
+const clientAdminIndexRoute = clientAdminIndexRouteImport.update({
+  id: '/(client)/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const clientAdminProjectsRoute = clientAdminProjectsRouteImport.update({
+  id: '/(client)/admin/projects',
+  path: '/admin/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const clientAdminProjectProjectIdRoute =
+  clientAdminProjectProjectIdRouteImport.update({
+    id: '/(client)/admin/project/$projectId',
+    path: '/admin/project/$projectId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const clientregistryRegistryProjectnameRoute =
+  clientregistryRegistryProjectnameRouteImport.update({
+    id: '/(client)/(registry)/registry/$projectname',
+    path: '/registry/$projectname',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin': typeof AdminIndexRoute
-  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
-  '/registry/registry/$projectname': typeof RegistryRegistryProjectnameRoute
+  '/admin/projects': typeof clientAdminProjectsRoute
+  '/admin': typeof clientAdminIndexRoute
   '/api/github': typeof ApiGithubIndexRoute
+  '/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
+  '/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin': typeof AdminIndexRoute
-  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
-  '/registry/registry/$projectname': typeof RegistryRegistryProjectnameRoute
+  '/admin/projects': typeof clientAdminProjectsRoute
+  '/admin': typeof clientAdminIndexRoute
   '/api/github': typeof ApiGithubIndexRoute
+  '/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
+  '/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin/': typeof AdminIndexRoute
-  '/admin/project/$projectId': typeof AdminProjectProjectIdRoute
-  '/registry/registry/$projectname': typeof RegistryRegistryProjectnameRoute
+  '/(client)/admin/projects': typeof clientAdminProjectsRoute
+  '/(client)/admin/': typeof clientAdminIndexRoute
   '/api/github/': typeof ApiGithubIndexRoute
+  '/(client)/(registry)/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
+  '/(client)/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,34 +80,34 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/projects'
     | '/admin'
-    | '/admin/project/$projectId'
-    | '/registry/registry/$projectname'
     | '/api/github'
+    | '/registry/$projectname'
+    | '/admin/project/$projectId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin/projects'
     | '/admin'
-    | '/admin/project/$projectId'
-    | '/registry/registry/$projectname'
     | '/api/github'
+    | '/registry/$projectname'
+    | '/admin/project/$projectId'
   id:
     | '__root__'
     | '/'
-    | '/admin/projects'
-    | '/admin/'
-    | '/admin/project/$projectId'
-    | '/registry/registry/$projectname'
+    | '/(client)/admin/projects'
+    | '/(client)/admin/'
     | '/api/github/'
+    | '/(client)/(registry)/registry/$projectname'
+    | '/(client)/admin/project/$projectId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminProjectsRoute: typeof AdminProjectsRoute
-  AdminIndexRoute: typeof AdminIndexRoute
-  AdminProjectProjectIdRoute: typeof AdminProjectProjectIdRoute
-  RegistryRegistryProjectnameRoute: typeof RegistryRegistryProjectnameRoute
+  clientAdminProjectsRoute: typeof clientAdminProjectsRoute
+  clientAdminIndexRoute: typeof clientAdminIndexRoute
   ApiGithubIndexRoute: typeof ApiGithubIndexRoute
+  clientregistryRegistryProjectnameRoute: typeof clientregistryRegistryProjectnameRoute
+  clientAdminProjectProjectIdRoute: typeof clientAdminProjectProjectIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,20 +119,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/projects': {
-      id: '/admin/projects'
-      path: '/admin/projects'
-      fullPath: '/admin/projects'
-      preLoaderRoute: typeof AdminProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/github/': {
       id: '/api/github/'
       path: '/api/github'
@@ -139,18 +126,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGithubIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/registry/registry/$projectname': {
-      id: '/registry/registry/$projectname'
-      path: '/registry/registry/$projectname'
-      fullPath: '/registry/registry/$projectname'
-      preLoaderRoute: typeof RegistryRegistryProjectnameRouteImport
+    '/(client)/admin/': {
+      id: '/(client)/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof clientAdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/project/$projectId': {
-      id: '/admin/project/$projectId'
+    '/(client)/admin/projects': {
+      id: '/(client)/admin/projects'
+      path: '/admin/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof clientAdminProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/admin/project/$projectId': {
+      id: '/(client)/admin/project/$projectId'
       path: '/admin/project/$projectId'
       fullPath: '/admin/project/$projectId'
-      preLoaderRoute: typeof AdminProjectProjectIdRouteImport
+      preLoaderRoute: typeof clientAdminProjectProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(client)/(registry)/registry/$projectname': {
+      id: '/(client)/(registry)/registry/$projectname'
+      path: '/registry/$projectname'
+      fullPath: '/registry/$projectname'
+      preLoaderRoute: typeof clientregistryRegistryProjectnameRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -158,17 +159,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminProjectsRoute: AdminProjectsRoute,
-  AdminIndexRoute: AdminIndexRoute,
-  AdminProjectProjectIdRoute: AdminProjectProjectIdRoute,
-  RegistryRegistryProjectnameRoute: RegistryRegistryProjectnameRoute,
+  clientAdminProjectsRoute: clientAdminProjectsRoute,
+  clientAdminIndexRoute: clientAdminIndexRoute,
   ApiGithubIndexRoute: ApiGithubIndexRoute,
+  clientregistryRegistryProjectnameRoute:
+    clientregistryRegistryProjectnameRoute,
+  clientAdminProjectProjectIdRoute: clientAdminProjectProjectIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from './router.tsx'
+import type { getRouter } from './router.ts'
 import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {

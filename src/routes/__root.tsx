@@ -8,7 +8,10 @@ import { Grommet, dark } from "grommet";
 import { hpe } from "grommet-theme-hpe";
 import { useEffect, useState } from "react";
 import { deepMerge } from "grommet/utils";
-import Background from "../components/background";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import Background from "@client/components/common/background";
 import type { ReactNode } from "react";
 import type { QueryClient } from "@tanstack/react-query";
 
@@ -56,7 +59,7 @@ function RootComponent() {
   );
 }
 
-function ClientOnly({ children }: { children: ReactNode }) {
+function ClientOnly({ children }: Readonly<{ children: ReactNode }>) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -74,7 +77,23 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <body>
         <ClientOnly>
           <Grommet theme={myTheme} full>
-            <Background>{children}</Background>
+            <Background>
+              {children}
+              <TanStackDevtools
+                plugins={[
+                  {
+                    name: "TanStack Query",
+                    render: <ReactQueryDevtoolsPanel />,
+                    defaultOpen: true,
+                  },
+                  {
+                    name: "TanStack Router",
+                    render: <TanStackRouterDevtoolsPanel />,
+                    defaultOpen: false,
+                  },
+                ]}
+              />
+            </Background>
           </Grommet>
         </ClientOnly>
         <Scripts />

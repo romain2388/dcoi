@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { handleWebhooks } from "../../../functions/webhook";
+import { handleWebhooks } from "@server/functions/webhook";
 
 export const Route = createFileRoute("/api/github/")({
   server: {

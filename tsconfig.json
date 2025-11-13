@@ -5,7 +5,14 @@
     "module": "ESNext",
     "target": "ES2022",
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@client/*": ["src/client/*"],
+      "@server/*": ["src/server/*"],
+      "@routes/*": ["src/routes/*"],
+      "@controller/*": ["src/controller/*"]
+    }
   },
   "include": ["src/**/*", "convex/*"]
 }
