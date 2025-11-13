@@ -4,7 +4,9 @@ type topMenuProperties = {
   active?: string;
 };
 
-export default function TopMenu({ active = "home" }: topMenuProperties) {
+export default function TopMenu({
+  active = "home",
+}: Readonly<topMenuProperties>) {
   const pages = [
     { id: "home", label: "Home", href: "#home" },
     { id: "page1", label: "Registry", href: "#page1" },

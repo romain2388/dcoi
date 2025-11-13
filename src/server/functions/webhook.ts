@@ -49,7 +49,7 @@ export const handleWebhooks = createServerOnlyFn(async (request) => {
   });
 
   webhooks.on("installation_repositories", async (event) => {
-    const inst = event.payload.installation; // { id, account }
+    const inst = event.payload.installation;
     if (!inst.account) return;
     await syncInstallationRepos({
       installationId: inst.id,
@@ -59,7 +59,7 @@ export const handleWebhooks = createServerOnlyFn(async (request) => {
 
   webhooks.on("marketplace_purchase", async (event) => {
     const mp = event.payload.marketplace_purchase;
-    const account = mp.account; // { id, login, type, avatar_url?, html_url? }
+    const account = mp.account;
     await upsertAccount({
       githubAccountId: account.id,
       accountLogin: account.login,
