@@ -3,11 +3,11 @@ import { Box, Button, Form, FormField, Grid, Text, TextArea } from "grommet";
 import { useParams } from "@tanstack/react-router";
 import { ProjectFormSchema } from "@controller/dto/projects";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getProjectByIdQueryOptions } from "@client/tanstack/queries/projects";
+import { getProjectByIdQueryOptions } from "@client/utils/queries/projects";
 import {
   useCreateProjectMutation,
   useUpdateProjectMutation,
-} from "../../tanstack/mutations/admin";
+} from "@client/utils/mutations/admin";
 import type { ProjectFormType } from "@controller/dto/projects";
 
 export function AdminProjectFormComponent() {

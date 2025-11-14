@@ -1,7 +1,7 @@
 import { Box, Button, Image, Text } from "grommet";
 import { Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { adminProjectsQueryOptions } from "../../tanstack/queries/projects";
+import { adminProjectsQueryOptions } from "@client/utils/queries/projects";
 
 export function AdminProjects() {
   const projects = useSuspenseQuery(adminProjectsQueryOptions());

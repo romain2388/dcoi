@@ -45,6 +45,10 @@ export const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  voteCount: {
+    type: Number,
+    default: 0,
+  },
 });
 export const projectModel =
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

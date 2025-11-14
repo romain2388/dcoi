@@ -105,3 +105,80 @@ export const getProjectById = createServerOnlyFn(async (data: string) => {
     proofOfRetirementUrl: project.proofOfRetirementUrl,
   } as ProjectFormType;
 });
+
+export const getFundedProjects = createServerOnlyFn(async () => {
+  await databaseConnect();
+  const projects = await projectModel
+    .find({
+      proofOfRetirementUrl: { $exists: true, $ne: "" },
+    })
+    .lean();
+  return projects.map((p) => ({
+    _id: p._id?.toString(),
+    name: p.name,
+    description: p.description,
+    carbonStandard: p.carbonStandard,
+    carbonQuantity: p.carbonQuantity,
+    carbonPrice: p.carbonPrice,
+    country: p.country,
+    image1Url: p.image1Url,
+    image2Url: p.image2Url,
+    image3Url: p.image3Url,
+    videoUrl: p.videoUrl,
+    proofOfRetirementUrl: p.proofOfRetirementUrl,
+  })) as Array<ProjectFormType>;
+});
+
+export const getVotingProjects = createServerOnlyFn(async () => {
+  await databaseConnect();
+  const projects = await projectModel
+    .find({
+      $or: [
+        { proofOfRetirementUrl: { $exists: false } },
+        { proofOfRetirementUrl: "" },
+      ],
+    })
+    .lean();
+  return projects.map((p) => ({
+    _id: p._id?.toString(),
+    name: p.name,
+    description: p.description,
+    carbonStandard: p.carbonStandard,
+    carbonQuantity: p.carbonQuantity,
+    carbonPrice: p.carbonPrice,
+    country: p.country,
+    image1Url: p.image1Url,
+    image2Url: p.image2Url,
+    image3Url: p.image3Url,
+    videoUrl: p.videoUrl,
+    proofOfRetirementUrl: p.proofOfRetirementUrl,
+    voteCount: p.voteCount || 0,
+  })) as Array<ProjectFormType>;
+});
+
+export const voteForProject = createServerOnlyFn(
+  async (data: { projectId: string }) => {
+    await databaseConnect();
+
+    // Vérifier si le projet existe et n'est pas déjà financé
+    const project = await projectModel.findById(data.projectId);
+    if (!project) {
+      throw new Error("Project not found");
+    }
+    if (project.proofOfRetirementUrl && project.proofOfRetirementUrl !== "") {
+      throw new Error("Cannot vote for already funded project");
+    }
+
+    // Incrémenter le compteur de votes
+    const updatedProject = await projectModel.findByIdAndUpdate(
+      data.projectId,
+      { $inc: { voteCount: 1 } },
+      { new: true },
+    );
+
+    return {
+      success: true,
+      voteCount: updatedProject?.voteCount || 0,
+    };
+  },
+);

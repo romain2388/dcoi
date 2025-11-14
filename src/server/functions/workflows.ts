@@ -125,3 +125,68 @@ export const listJobsByRun = createServerOnlyFn(
     return validated.limit ? jobs.slice(0, validated.limit) : jobs;
   },
 );
+
+export const getRepoRunsWithPagination = createServerOnlyFn(
+  async (arguments_: {
+    repoFullName: string;
+    page?: number;
+    limit?: number;
+  }) => {
+    const page = arguments_.page || 1;
+    const limit = arguments_.limit || 10;
+    const skip = (page - 1) * limit;
+
+    const repo = await repoModel.findOne({
+      fullName: arguments_.repoFullName,
+    });
+
+    if (!repo) {
+      throw new Error(`Repository ${arguments_.repoFullName} not found`);
+    }
+
+    const totalRuns = await workflowRunModel.countDocuments({
+      repoId: repo.repoId,
+    });
+
+    const runsQuery = workflowRunModel
+      .find({ repoId: repo.repoId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    const runs = await runsQuery.lean();
+
+    // Transform runs to plain objects
+    const transformedRuns = runs.map((run) => ({
+      _id: (run._id as any).toString(),
+      accountId: run.accountId,
+      repoId: run.repoId,
+      repoFullName: run.repoFullName,
+      runId: run.runId,
+      name: run.name,
+      headBranch: run.headBranch,
+      conclusion: run.conclusion,
+      createdAt: run.createdAt,
+      totalCarbon: run.totalCarbon,
+      isOffsetOK: run.isOffsetOK,
+    }));
+
+    return {
+      repo: {
+        _id: repo._id.toString(),
+        repoId: repo.repoId,
+        fullName: repo.fullName,
+        name: repo.name,
+        ownerId: repo.ownerId,
+        private: repo.private,
+        createdAt: repo.createdAt,
+      },
+      runs: transformedRuns,
+      pagination: {
+        page,
+        limit,
+        total: totalRuns,
+        totalPages: Math.ceil(totalRuns / limit),
+      },
+    };
+  },
+);

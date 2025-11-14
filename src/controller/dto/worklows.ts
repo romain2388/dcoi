@@ -38,3 +38,13 @@ export const listJobsByRunSchema = z.object({
 });
 
 export type ListJobsByRunInput = z.infer<typeof listJobsByRunSchema>;
+
+export const getRepoRunsWithPaginationSchema = z.object({
+  repoFullName: z.string(),
+  page: z.number().optional(),
+  limit: z.number().optional(),
+});
+
+export type GetRepoRunsWithPaginationInput = z.infer<
+  typeof getRepoRunsWithPaginationSchema
+>;

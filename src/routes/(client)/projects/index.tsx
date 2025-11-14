@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AdminProjects } from "@client/components/admin/admin-projects";
+import { ProjectsIndex } from "@client/components/projects/projects-index";
 import { adminProjectsQueryOptions } from "@client/utils/queries/projects";
 
-export const Route = createFileRoute("/(client)/admin/projects")({
+export const Route = createFileRoute("/(client)/projects/")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(adminProjectsQueryOptions());
   },
-  component: AdminProjects,
+  component: ProjectsIndex,
 });

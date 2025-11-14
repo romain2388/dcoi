@@ -13,6 +13,7 @@ export const ProjectFormSchema = z.object({
   image3Url: z.url().or(z.literal("")).optional(),
   videoUrl: z.url().or(z.literal("")).optional(),
   proofOfRetirementUrl: z.url().or(z.literal("")).optional(),
+  voteCount: z.number().optional(),
 });
 
 export const ProjectFormDTOSchema = z.object({
@@ -20,5 +21,10 @@ export const ProjectFormDTOSchema = z.object({
   adminPwd: z.string(),
 });
 
+export const VoteProjectDTOSchema = z.object({
+  projectId: z.string(),
+});
+
 export type ProjectFormType = z.infer<typeof ProjectFormSchema>;
 export type ProjectFormDTOType = z.infer<typeof ProjectFormDTOSchema>;
+export type VoteProjectDTOType = z.infer<typeof VoteProjectDTOSchema>;

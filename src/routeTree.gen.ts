@@ -8,173 +8,257 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiGithubIndexRouteImport } from './routes/api/github/index'
-import { Route as clientAdminIndexRouteImport } from './routes/(client)/admin/index'
-import { Route as clientAdminProjectsRouteImport } from './routes/(client)/admin/projects'
-import { Route as clientAdminProjectProjectIdRouteImport } from './routes/(client)/admin/project.$projectId'
-import { Route as clientregistryRegistryProjectnameRouteImport } from './routes/(client)/(registry)/registry.$projectname'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as clientCommunityRouteImport } from "@routes/(client)/community";
+import { Route as ApiGithubIndexRouteImport } from "./routes/api/github/index";
+import { Route as clientProjectsIndexRouteImport } from "./routes/(client)/projects/index";
+import { Route as clientAdminIndexRouteImport } from "./routes/(client)/admin/index";
+import { Route as clientProjectsVotingRouteImport } from "./routes/(client)/projects/voting";
+import { Route as clientProjectsFundedRouteImport } from "./routes/(client)/projects/funded";
+import { Route as clientAdminProjectsRouteImport } from "./routes/(client)/admin/projects";
+import { Route as clientAdminProjectProjectIdRouteImport } from "./routes/(client)/admin/project.$projectId";
+import { Route as clientregistryRegistryProjectnameRouteImport } from "./routes/(client)/(registry)/registry.$projectname";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
+const clientCommunityRoute = clientCommunityRouteImport.update({
+  id: "/(client)/community",
+  path: "/community",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const ApiGithubIndexRoute = ApiGithubIndexRouteImport.update({
-  id: '/api/github/',
-  path: '/api/github/',
+  id: "/api/github/",
+  path: "/api/github/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
+const clientProjectsIndexRoute = clientProjectsIndexRouteImport.update({
+  id: "/(client)/projects/",
+  path: "/projects/",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const clientAdminIndexRoute = clientAdminIndexRouteImport.update({
-  id: '/(client)/admin/',
-  path: '/admin/',
+  id: "/(client)/admin/",
+  path: "/admin/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
+const clientProjectsVotingRoute = clientProjectsVotingRouteImport.update({
+  id: "/(client)/projects/voting",
+  path: "/projects/voting",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const clientProjectsFundedRoute = clientProjectsFundedRouteImport.update({
+  id: "/(client)/projects/funded",
+  path: "/projects/funded",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const clientAdminProjectsRoute = clientAdminProjectsRouteImport.update({
-  id: '/(client)/admin/projects',
-  path: '/admin/projects',
+  id: "/(client)/admin/projects",
+  path: "/admin/projects",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const clientAdminProjectProjectIdRoute =
   clientAdminProjectProjectIdRouteImport.update({
-    id: '/(client)/admin/project/$projectId',
-    path: '/admin/project/$projectId',
+    id: "/(client)/admin/project/$projectId",
+    path: "/admin/project/$projectId",
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 const clientregistryRegistryProjectnameRoute =
   clientregistryRegistryProjectnameRouteImport.update({
-    id: '/(client)/(registry)/registry/$projectname',
-    path: '/registry/$projectname',
+    id: "/(client)/(registry)/registry/$projectname",
+    path: "/registry/$projectname",
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/admin/projects': typeof clientAdminProjectsRoute
-  '/admin': typeof clientAdminIndexRoute
-  '/api/github': typeof ApiGithubIndexRoute
-  '/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
-  '/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
+  "/": typeof IndexRoute;
+  "/community": typeof clientCommunityRoute;
+  "/admin/projects": typeof clientAdminProjectsRoute;
+  "/projects/funded": typeof clientProjectsFundedRoute;
+  "/projects/voting": typeof clientProjectsVotingRoute;
+  "/admin": typeof clientAdminIndexRoute;
+  "/projects": typeof clientProjectsIndexRoute;
+  "/api/github": typeof ApiGithubIndexRoute;
+  "/registry/$projectname": typeof clientregistryRegistryProjectnameRoute;
+  "/admin/project/$projectId": typeof clientAdminProjectProjectIdRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/admin/projects': typeof clientAdminProjectsRoute
-  '/admin': typeof clientAdminIndexRoute
-  '/api/github': typeof ApiGithubIndexRoute
-  '/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
-  '/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
+  "/": typeof IndexRoute;
+  "/community": typeof clientCommunityRoute;
+  "/admin/projects": typeof clientAdminProjectsRoute;
+  "/projects/funded": typeof clientProjectsFundedRoute;
+  "/projects/voting": typeof clientProjectsVotingRoute;
+  "/admin": typeof clientAdminIndexRoute;
+  "/projects": typeof clientProjectsIndexRoute;
+  "/api/github": typeof ApiGithubIndexRoute;
+  "/registry/$projectname": typeof clientregistryRegistryProjectnameRoute;
+  "/admin/project/$projectId": typeof clientAdminProjectProjectIdRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/(client)/admin/projects': typeof clientAdminProjectsRoute
-  '/(client)/admin/': typeof clientAdminIndexRoute
-  '/api/github/': typeof ApiGithubIndexRoute
-  '/(client)/(registry)/registry/$projectname': typeof clientregistryRegistryProjectnameRoute
-  '/(client)/admin/project/$projectId': typeof clientAdminProjectProjectIdRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/(client)/community": typeof clientCommunityRoute;
+  "/(client)/admin/projects": typeof clientAdminProjectsRoute;
+  "/(client)/projects/funded": typeof clientProjectsFundedRoute;
+  "/(client)/projects/voting": typeof clientProjectsVotingRoute;
+  "/(client)/admin/": typeof clientAdminIndexRoute;
+  "/(client)/projects/": typeof clientProjectsIndexRoute;
+  "/api/github/": typeof ApiGithubIndexRoute;
+  "/(client)/(registry)/registry/$projectname": typeof clientregistryRegistryProjectnameRoute;
+  "/(client)/admin/project/$projectId": typeof clientAdminProjectProjectIdRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/admin/projects'
-    | '/admin'
-    | '/api/github'
-    | '/registry/$projectname'
-    | '/admin/project/$projectId'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/community"
+    | "/admin/projects"
+    | "/projects/funded"
+    | "/projects/voting"
+    | "/admin"
+    | "/projects"
+    | "/api/github"
+    | "/registry/$projectname"
+    | "/admin/project/$projectId";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/admin/projects'
-    | '/admin'
-    | '/api/github'
-    | '/registry/$projectname'
-    | '/admin/project/$projectId'
+    | "/"
+    | "/community"
+    | "/admin/projects"
+    | "/projects/funded"
+    | "/projects/voting"
+    | "/admin"
+    | "/projects"
+    | "/api/github"
+    | "/registry/$projectname"
+    | "/admin/project/$projectId";
   id:
-    | '__root__'
-    | '/'
-    | '/(client)/admin/projects'
-    | '/(client)/admin/'
-    | '/api/github/'
-    | '/(client)/(registry)/registry/$projectname'
-    | '/(client)/admin/project/$projectId'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/(client)/community"
+    | "/(client)/admin/projects"
+    | "/(client)/projects/funded"
+    | "/(client)/projects/voting"
+    | "/(client)/admin/"
+    | "/(client)/projects/"
+    | "/api/github/"
+    | "/(client)/(registry)/registry/$projectname"
+    | "/(client)/admin/project/$projectId";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  clientAdminProjectsRoute: typeof clientAdminProjectsRoute
-  clientAdminIndexRoute: typeof clientAdminIndexRoute
-  ApiGithubIndexRoute: typeof ApiGithubIndexRoute
-  clientregistryRegistryProjectnameRoute: typeof clientregistryRegistryProjectnameRoute
-  clientAdminProjectProjectIdRoute: typeof clientAdminProjectProjectIdRoute
+  IndexRoute: typeof IndexRoute;
+  clientCommunityRoute: typeof clientCommunityRoute;
+  clientAdminProjectsRoute: typeof clientAdminProjectsRoute;
+  clientProjectsFundedRoute: typeof clientProjectsFundedRoute;
+  clientProjectsVotingRoute: typeof clientProjectsVotingRoute;
+  clientAdminIndexRoute: typeof clientAdminIndexRoute;
+  clientProjectsIndexRoute: typeof clientProjectsIndexRoute;
+  ApiGithubIndexRoute: typeof ApiGithubIndexRoute;
+  clientregistryRegistryProjectnameRoute: typeof clientregistryRegistryProjectnameRoute;
+  clientAdminProjectProjectIdRoute: typeof clientAdminProjectProjectIdRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/github/': {
-      id: '/api/github/'
-      path: '/api/github'
-      fullPath: '/api/github'
-      preLoaderRoute: typeof ApiGithubIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(client)/admin/': {
-      id: '/(client)/admin/'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof clientAdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(client)/admin/projects': {
-      id: '/(client)/admin/projects'
-      path: '/admin/projects'
-      fullPath: '/admin/projects'
-      preLoaderRoute: typeof clientAdminProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(client)/admin/project/$projectId': {
-      id: '/(client)/admin/project/$projectId'
-      path: '/admin/project/$projectId'
-      fullPath: '/admin/project/$projectId'
-      preLoaderRoute: typeof clientAdminProjectProjectIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(client)/(registry)/registry/$projectname': {
-      id: '/(client)/(registry)/registry/$projectname'
-      path: '/registry/$projectname'
-      fullPath: '/registry/$projectname'
-      preLoaderRoute: typeof clientregistryRegistryProjectnameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/community": {
+      id: "/(client)/community";
+      path: "/community";
+      fullPath: "/community";
+      preLoaderRoute: typeof clientCommunityRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/github/": {
+      id: "/api/github/";
+      path: "/api/github";
+      fullPath: "/api/github";
+      preLoaderRoute: typeof ApiGithubIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/projects/": {
+      id: "/(client)/projects/";
+      path: "/projects";
+      fullPath: "/projects";
+      preLoaderRoute: typeof clientProjectsIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/admin/": {
+      id: "/(client)/admin/";
+      path: "/admin";
+      fullPath: "/admin";
+      preLoaderRoute: typeof clientAdminIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/projects/voting": {
+      id: "/(client)/projects/voting";
+      path: "/projects/voting";
+      fullPath: "/projects/voting";
+      preLoaderRoute: typeof clientProjectsVotingRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/projects/funded": {
+      id: "/(client)/projects/funded";
+      path: "/projects/funded";
+      fullPath: "/projects/funded";
+      preLoaderRoute: typeof clientProjectsFundedRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/admin/projects": {
+      id: "/(client)/admin/projects";
+      path: "/admin/projects";
+      fullPath: "/admin/projects";
+      preLoaderRoute: typeof clientAdminProjectsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/admin/project/$projectId": {
+      id: "/(client)/admin/project/$projectId";
+      path: "/admin/project/$projectId";
+      fullPath: "/admin/project/$projectId";
+      preLoaderRoute: typeof clientAdminProjectProjectIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(client)/(registry)/registry/$projectname": {
+      id: "/(client)/(registry)/registry/$projectname";
+      path: "/registry/$projectname";
+      fullPath: "/registry/$projectname";
+      preLoaderRoute: typeof clientregistryRegistryProjectnameRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  clientCommunityRoute: clientCommunityRoute,
   clientAdminProjectsRoute: clientAdminProjectsRoute,
+  clientProjectsFundedRoute: clientProjectsFundedRoute,
+  clientProjectsVotingRoute: clientProjectsVotingRoute,
   clientAdminIndexRoute: clientAdminIndexRoute,
+  clientProjectsIndexRoute: clientProjectsIndexRoute,
   ApiGithubIndexRoute: ApiGithubIndexRoute,
   clientregistryRegistryProjectnameRoute:
     clientregistryRegistryProjectnameRoute,
   clientAdminProjectProjectIdRoute: clientAdminProjectProjectIdRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.ts'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.ts";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

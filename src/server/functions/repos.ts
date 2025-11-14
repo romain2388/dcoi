@@ -1,5 +1,7 @@
 import { createServerOnlyFn } from "@tanstack/react-start";
 import { upsertRepoSchema } from "@controller/dto/repos";
+import { accountModel } from "@server/db/schemas/account-schema";
+import { walletModel } from "@server/db/schemas/wallet-schema";
 import { repoModel } from "../db/schemas/repo-schema";
 import { getInstallationOctokit, paginateAll } from "../utilities.github";
 
@@ -42,5 +44,40 @@ export const syncInstallationRepos = createServerOnlyFn(
     for (const r of mapped) {
       await upsertRepo(r);
     }
+  },
+);
+
+export const getRepoOverviewService = createServerOnlyFn(
+  async (repoFullName: string) => {
+    const repo = await repoModel.findOne({
+      fullName: repoFullName,
+    });
+
+    const account = await accountModel.findOne({
+      githubAccountId: repo.ownerId,
+    });
+
+    const wallet = await walletModel.findOne({
+      accountId: account.githubAccountId,
+    });
+
+    const communityWallet = await walletModel.findOne();
+
+    if (!communityWallet) {
+      throw new Error("Community wallet not found");
+    }
+
+    return {
+      repo,
+      owner: account,
+      wallet: wallet
+        ? {
+            _id: wallet._id.toString(),
+            accountId: wallet.accountId,
+            balanceCredits: wallet.balanceCredits,
+          }
+        : undefined,
+      communityCredits: communityWallet.balanceCredits,
+    };
   },
 );

@@ -1,7 +1,7 @@
 import { tanstackConfig } from "@tanstack/eslint-config";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import Recommended from "eslint-plugin-prettier/recommended";
-import sonarjs from 'eslint-plugin-sonarjs';
+import sonarjs from "eslint-plugin-sonarjs";
 
 export default [
   {
@@ -13,7 +13,7 @@ export default [
       ".idea/**",
       ".nitro/**",
       ".output/**",
-      ".tanstack/**",
+      ".utils/**",
       "**/*.config.js",
       "**/*.config.ts",
     ],
@@ -22,6 +22,12 @@ export default [
   eslintPluginUnicorn.configs.all,
   Recommended,
   sonarjs.configs.recommended,
+  {
+    plugins: { eslintPluginUnicorn },
+    rules: {
+      "unicorn/no-array-sort": ["warn"],
+    },
+  },
   {
     rules: {
       "max-params": ["error", 4],
@@ -41,7 +47,7 @@ export default [
           ],
           paths: [
             {
-              name: "@tanstack/react-start",
+              name: "@utils/react-start",
               importNames: ["createServerFn"],
               message:
                 "You are not allowed to import createServerFn in server code.",
@@ -65,7 +71,7 @@ export default [
           ],
           paths: [
             {
-              name: "@tanstack/react-start",
+              name: "@utils/react-start",
               importNames: ["createServerOnlyFn"],
               message:
                 "You are not allowed to import createServerOnlyFn in controller code.",
@@ -81,7 +87,7 @@ export default [
       "no-restricted-imports": [
         "error",
         {
-          patterns: ["@server/*", "@route/*", "@tanstack/react-start"],
+          patterns: ["@server/*", "@route/*", "@utils/react-start"],
         },
       ],
     },
@@ -97,7 +103,7 @@ export default [
             "@controller/**",
             "@client/**",
             "@routes/(client)/**",
-            "@tanstack/react-start",
+            "@utils/react-start",
             "@tanstack/react-query",
           ],
         },
@@ -115,7 +121,7 @@ export default [
             "@server/**",
             "@controller/**",
             "@routes/api/**",
-            "@tanstack/react-start",
+            "@utils/react-start",
             "@tanstack/react-query",
           ],
         },
